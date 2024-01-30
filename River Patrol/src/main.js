@@ -5,6 +5,9 @@ My Name: Chase Croy-Perrett
 Mod Title: River Patrol : Rise of the Bears
 
 
+Approximate Time: 8 hours
+
+
 The Mods I Used:
 
 1 point: Add your own (copyright-free) looping background music to the Play scene. Added a copyright-free funky, fishing song!
