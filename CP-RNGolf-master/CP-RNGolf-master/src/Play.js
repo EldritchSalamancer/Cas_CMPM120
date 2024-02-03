@@ -22,16 +22,6 @@ class Play extends Phaser.Scene {
         this.load.image('oneway', 'one_way_wall.png')
     }
 
-    AddListener(){
-        this.physics.add.collider(this.ball, this.cup, (ball, cup) => {
-            ball.destroy();
-            this.ball = this.physics.add.sprite(width/2, height - height /10, 'ball')
-            this.physics.add.collider(this.ball, this.walls)
-            this.physics.add.collider(this.ball, this.oneWay)
-            AddListener()
-        })
-    }
-
     create() {
         // add background grass
         this.grass = this.add.image(0, 0, 'grass').setOrigin(0)
@@ -83,15 +73,15 @@ class Play extends Phaser.Scene {
             ball.destroy();
             this.ball = this.physics.add.sprite(width/2, height - height /10, 'ball')
             this.ball.body.setCircle(this.ball.width/2)
-        this.ball.body.setCollideWorldBounds(true)
-        this.ball.body.setBounce(0.5)
-        this.ball.body.setDamping(true).setDrag(0.5)
+            this.ball.body.setCollideWorldBounds(true)
+            this.ball.body.setBounce(0.5)
+            this.ball.body.setDamping(true).setDrag(0.5)
             //this.physics.add.collider(this.balls, this.walls)
             //this.physics.add.collider(this.ball, this.oneWay)
             this.balls.add(this.ball);
             this.score += 1;
             this.txt.text = "Score: " + this.score;
-            //AddListener();
+            AddListen(this);
         })
 
         // ball/wall collision
@@ -149,6 +139,23 @@ class Play extends Phaser.Scene {
             this.wallA.body.setVelocityX(150);
         }
     }
+}
+
+function AddListen(tis){
+    tis.physics.add.collider(tis.ball, tis.cup, (ball, cup) => {
+        ball.destroy();
+        tis.ball = tis.physics.add.sprite(width/2, height - height /10, 'ball')
+        tis.ball.body.setCircle(tis.ball.width/2)
+        tis.ball.body.setCollideWorldBounds(true)
+        tis.ball.body.setBounce(0.5)
+        tis.ball.body.setDamping(true).setDrag(0.5)
+        //this.physics.add.collider(this.balls, this.walls)
+        //this.physics.add.collider(this.ball, this.oneWay)
+        tis.balls.add(tis.ball);
+        tis.score += 1;
+        tis.txt.text = "Score: " + tis.score;
+        AddListen(tis);
+    })
 }
 /*
 CODE CHALLENGE
