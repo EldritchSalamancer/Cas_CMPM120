@@ -6,9 +6,9 @@ class Play extends Phaser.Scene {
     //private sampleSound: Phaser.sound;
 
     create() {
-        //this.add.text(20, 20, "Rocket Patrol Play");
-        //river background
-        //this.add.rectangle(0, game.config.height, game.config.width, borderUISize * 2, 0x0000FF).setOrigin(0, 0);
+        //number to spawn obstacles every so often
+        this.spawnrate = 4;
+        this.spawncount = 0;
 
         // place tile sprite
         //this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);

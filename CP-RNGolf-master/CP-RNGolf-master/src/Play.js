@@ -82,7 +82,7 @@ class Play extends Phaser.Scene {
             this.score += 1;
             this.txt.text = "Score: " + this.score;
             AddListen(this);
-        })
+        });
 
         // ball/wall collision
         this.physics.add.collider(this.balls, this.walls)
