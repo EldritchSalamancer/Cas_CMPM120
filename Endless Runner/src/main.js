@@ -43,6 +43,7 @@ let config = {
     type: Phaser.AUTO,
     width: 640,
     height: 480,
+    scrollSpeed: 200,
     //scene: [ Menu, Play ]
     scene: [Play], //start in play for debugging
 

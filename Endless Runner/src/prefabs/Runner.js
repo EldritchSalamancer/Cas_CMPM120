@@ -36,9 +36,17 @@ class Runner extends Phaser.GameObjects.Sprite {
         && Phaser.Input.Keyboard.DownDuration(keySPACE, 99999999) == false){ //fall down
             this.sprite.body.velocity.y += 30;
         }
-        else if (Phaser.Input.Keyboard.JustDown(keySPACE)  
-        && (this.sprite.body.velocity.y == 0 || this.sprite.body.velocity.y == 30)){ //jump
-            this.sprite.body.velocity.y = -this.jumpheight;
+        else if (Phaser.Input.Keyboard.JustDown(keySPACE)){ //jump
+            //if we are on the ground, do a jump
+            if(this.sprite.body.velocity.y == 0 || this.sprite.body.velocity.y == 30){
+                this.sprite.body.velocity.y = -this.jumpheight;
+            }
+            //if we have boosts stored, use them to do an air jump
+            else if(this.scene.doublejumps > 0){
+                this.scene.doublejumps -= 1;
+                this.sprite.body.velocity.y = -this.jumpheight;
+            }
+            
         }
 
         if (Phaser.Input.Keyboard.DownDuration(keyLEFT,  99999999)){

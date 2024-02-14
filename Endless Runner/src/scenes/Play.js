@@ -18,14 +18,26 @@ class Play extends Phaser.Scene {
         this.jumpheight = 370;
 
         //decides if game is on
-        this.time = true;
+        this.gamegoing= true;
+        this.time = 0;
     }
     //private sampleSound: Phaser.sound;
 
     create() {
         //variable to keep track of how many "grounds" have gone by
+        this.scrollSpeed = 200;
         this.spawncount = 0;
-        this.spawnrate = 5;
+        this.spawnrate = 4;
+        this.survivorcount = 0;
+        this.survivorrate = 6;
+        this.spikerate = 5;
+        this.pokerrate = 8;
+
+        this.doublejumps = 0;
+        this.doubletxt = this.add.text(0,20,"Boosts: " + this.doublejumps, { fontSize: 12 });
+        this.survivorssaved = 0;
+        this.survivortxt = this.add.text(0,0,"Survivors Saved: " + this.survivorssaved, { fontSize: 12 });
+        this.wrathtxt = this.add.text(550,0,"Wrath: " + (this.scrollSpeed-200)/5, { fontSize: 12 });
 
         //adds runner
         this.runner = new Runner(this, 0, 2*game.config.height/3 + 50, 'spaceship', 0).setOrigin(0, 0);
@@ -75,9 +87,16 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.runner.sprite, this.wall);
     }
     update() {
+        //console.log("gamescrollspeed is: " + this.scrollSpeed);
+        
+
         //only update if game is running
         //console.log("time is: " + this.time);
-        if(this.time == true){
+        this.doubletxt.text = "Boosts: " + this.doublejumps;
+        this.survivortxt.text = "Survivors Saved: " + this.survivorssaved;
+        this.wrathtxt.text = "Wrath: " + (this.scrollSpeed/200);
+
+        if(this.gamegoing == true){
 
             //updates runner
             this.runner.update();
@@ -102,8 +121,18 @@ class Play extends Phaser.Scene {
             for(var i = 0; i < this.obstaclearr.length; i++){
                 this.obstaclearr[i].sprite.body.velocity.x = 0;
             }
+
+            if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+                this.scene.restart();
+            }
         }
 
     }
 
 }
+
+//function EndGame(scene){
+    //scene.time = false;
+    //scene.txt = scene.add.text(game.config.width/7,game.config.height/2,"Game Over, Press Space to restart", { fontSize: 22 });
+    
+//}

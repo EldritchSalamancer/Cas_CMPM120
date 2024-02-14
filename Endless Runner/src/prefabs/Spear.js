@@ -1,5 +1,5 @@
-class Obstacle extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, ground) {
+class Spear extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture, frame, ground, type) {
       super(scene, x, y, texture, frame);
       
       this.scrollSpeed = 200;
@@ -19,9 +19,8 @@ class Obstacle extends Phaser.GameObjects.Sprite {
 
       //ends game if runner collides with obstacle 
       scene.physics.add.collider(this.sprite, scene.runner.sprite, (sprite, runner) => {
-        //console.log("Player hit obstacle, game over");
-        scene.time = false;
-        //AddListen(scene);
+        scene.gamegoing = false;
+        scene.txt = scene.add.text(game.config.width/7,game.config.height/2,"Game Over, Press Space to restart", { fontSize: 22 });
       });
 
       //scene.physics.add.collider(scene.grounds, this.sprite);
@@ -30,7 +29,7 @@ class Obstacle extends Phaser.GameObjects.Sprite {
     }
 
     update(){
-        this.sprite.body.velocity.x = - this.ground.scrollSpeed;
+        this.sprite.body.velocity.x = - this.scene.scrollSpeed
 
         //destroy the obstacle if it moved off the screen
         if(this.sprite.body.x < this.endingx){

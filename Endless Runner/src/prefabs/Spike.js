@@ -1,9 +1,8 @@
-class Survivor extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, ground) {
+class Spike extends Phaser.GameObjects.Sprite {
+    constructor(scene, x, y, texture, frame, ground, type) {
       super(scene, x, y, texture, frame);
-      //console.log("survivor created");
+      
       this.scrollSpeed = 200;
-      //console.log('made survivor');
 
       //where to teleport ground if it goes too far 
       this.startingx = game.config.width + ground.sprite.body.width + 130;
@@ -11,8 +10,10 @@ class Survivor extends Phaser.GameObjects.Sprite {
       this.endingx = -game.config.width/5;
 
       this.sprite = scene.physics.add.sprite(x, y, 'spaceship').setOrigin(0, 0);
-      this.sprite.tint = 0xFFFF00;
+      this.sprite.tint = 0xFF0000;
       this.sprite.setImmovable();
+      this.sprite.scaleX = 2;
+      this.sprite.scaleY = 0.4;
     
 
       this.scene.obstacles.add(this.sprite);
@@ -20,21 +21,8 @@ class Survivor extends Phaser.GameObjects.Sprite {
 
       //ends game if runner collides with obstacle 
       scene.physics.add.collider(this.sprite, scene.runner.sprite, (sprite, runner) => {
-        //console.log("Player hit obstacle, game over");
-        this.scene.survivorssaved += 1;
-        if(this.scene.doublejumps < 4){
-            this.scene.doublejumps += 1;
-        }
-        for(var i = 0; i < this.scene.obstaclearr.length; i++){
-            if(this.scene.obstaclearr[i] == this){
-                this.scene.obstaclearr.splice(i, 1);
-                break;
-            }
-        }
-        //this.scene.obstaclearr.shift();
-        this.sprite.body.enable = false;
-        this.sprite.destroy();
-        this.destroy();
+        scene.gamegoing = false;
+        scene.txt = scene.add.text(game.config.width/7,game.config.height/2,"Game Over, Press Space to restart", { fontSize: 22 });
       });
 
       //scene.physics.add.collider(scene.grounds, this.sprite);
@@ -44,7 +32,6 @@ class Survivor extends Phaser.GameObjects.Sprite {
 
     update(){
         this.sprite.body.velocity.x = - this.scene.scrollSpeed;
-        //console.log('running survivor');
 
         //destroy the obstacle if it moved off the screen
         if(this.sprite.body.x < this.endingx){
@@ -60,6 +47,9 @@ class Survivor extends Phaser.GameObjects.Sprite {
             this.destroy();
         }
 
+        //console.log("ground position is: " + this.sprite.body.x)
+        //this.x = this.sprite.x;
     }
+    
     
 }
