@@ -84,7 +84,7 @@ class Ground extends Phaser.GameObjects.Sprite {
         if(this.scene.time > 20 && (this.scene.time % this.scene.spikerate) == 0 && this.scene.spawncount != 0){
             var newobst = new Spike(this.scene, this.sprite.body.x, this.sprite.body.y - 40, 'spaceship', 0, this).setOrigin(0, 0);
             if(this.scene.time > 80){
-                var newobst = new Spike(this.scene, this.sprite.body.x + this.sprite.body.width, this.sprite.body.y - 20, 'spaceship', 0, this).setOrigin(0, 0);
+                var newobst = new Spike(this.scene, this.sprite.body.x + this.sprite.body.width, this.sprite.body.y - 40, 'spaceship', 0, this).setOrigin(0, 0);
 
                 this.scene.spikerate = Math.ceil(Math.random() * 4) + 3;
             }
