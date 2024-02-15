@@ -2,38 +2,24 @@
 My Name: Chase Croy-Perrett
 
 
-Mod Title: River Patrol : Rise of the Bears
+Game Title: Defy Judgment
 
 
-Approximate Time: 8 hours
+Approximate Time: 22 hours
 
 
-The Mods I Used:
-
-1 point: Add your own (copyright-free) looping background music to the Play scene. Added a copyright-free funky, fishing song!
-
-1 point: Allow the player to control the Rocket after it's fired
-
-1 point: Randomize each spaceship's movement direction at the start of each play
-
-1 point: Track a high score that persists across scenes and display it in the UI. 
-High score is displayed adjacent to the current score. Each mode has it's own seperatley tracked high score.
-
-1 point: Create a new scrolling tile sprite for the background (1)
-
-1 point: Implement the speed increase that happens after 30 seconds in the original game (1)
-
-3 points: Display the time remaining (in seconds) on the screen (3)
-Time is displayed in the rightmost bar
-
-3 points: Using a texture atlas, create a new animated sprite (three frames minimum) for the enemy spaceships (3)
-I made the main spaceships an evil infernal bear!
-
-3 points: Create a new title screen (e.g., new artwork, typography, layout) (3)
-Now includes plot!
-
-5 points: Create a new enemy Spaceship type (w/ new artwork) that's smaller, moves faster, and is worth more points (5)
-I made the new small spaceship a cute angelic bunny!
+Creative Tilt:
+Hello! I am quite proud of this game I have made, both it's mechanics and its visual style. My art skills may not be the most
+exemplary of the class, but I am proud that I was able to put together a cohesive theme (of the biblical judgment day) in a 
+minimalistic style. My greatest artistic feat being the layered ground the player runs across, it's joint pieces creating
+a three dimensional effect in the game. The music is also particularly fitting for the setting, the proper
+combination of energatic and  for facing off a mind boggling end of the world senario.
+The technically interesting feat I have achieved also has to do with dynamic grounding 
+system I have used to control obstacle and pickup spawns. The type and number of obstacles will dynamically grow over time,
+but may be overcome with the stored "bonus jumps" the player has collected. While the player may be limited to the standard move and jump
+options, the ability to collect and store jumps for later use placed a long-term risk-assessment aspect of gameplay on top of 
+the regular short term manuvering gameplay. The player may store a maximum of four additional bonus jumps at a time, each one for a
+survivor rescued.
 
 Total: 20 points
 */
@@ -44,13 +30,14 @@ let config = {
     width: 640,
     height: 480,
     scrollSpeed: 200,
-    //scene: [ Menu, Play ]
-    scene: [Play], //start in play for debugging
+    scene: [ Menu, Play ],
+    //scene: [Play], //start in play for debugging
 
     physics: {
         default: 'arcade',
         arcade: {
-          debug: true
+          //debug: true
+          debug: false
         }
     }
     

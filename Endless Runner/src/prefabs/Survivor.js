@@ -10,9 +10,11 @@ class Survivor extends Phaser.GameObjects.Sprite {
       this.startingy = 2*game.config.height/3 + 50;
       this.endingx = -game.config.width/5;
 
-      this.sprite = scene.physics.add.sprite(x, y, 'spaceship').setOrigin(0, 0);
+      this.sprite = scene.physics.add.sprite(x, y, 'survivors').setOrigin(0, 0);
       this.sprite.tint = 0xFFFF00;
       this.sprite.setImmovable();
+      this.sprite.anims.play('survivor');
+      this.sprite.scaleX = 1.4; this.sprite.scaleY = 1.4;
     
 
       this.scene.obstacles.add(this.sprite);
@@ -28,6 +30,8 @@ class Survivor extends Phaser.GameObjects.Sprite {
         for(var i = 0; i < this.scene.obstaclearr.length; i++){
             if(this.scene.obstaclearr[i] == this){
                 this.scene.obstaclearr.splice(i, 1);
+                this.scene.collect = this.scene.sound.add('collect');
+                this.scene.collect.play();
                 break;
             }
         }

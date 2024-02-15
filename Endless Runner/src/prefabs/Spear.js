@@ -9,9 +9,10 @@ class Spear extends Phaser.GameObjects.Sprite {
       this.startingy = 2*game.config.height/3 + 50;
       this.endingx = -game.config.width/5;
 
-      this.sprite = scene.physics.add.sprite(x, y, 'spaceship').setOrigin(0, 0);
+      this.sprite = scene.physics.add.sprite(x, y, 'arrows').setOrigin(0, 0);
       this.sprite.tint = 0xFF0000;
       this.sprite.setImmovable();
+      this.sprite.anims.play('arrow');
     
 
       this.scene.obstacles.add(this.sprite);
@@ -19,8 +20,16 @@ class Spear extends Phaser.GameObjects.Sprite {
 
       //ends game if runner collides with obstacle 
       scene.physics.add.collider(this.sprite, scene.runner.sprite, (sprite, runner) => {
+        if(scene.gamegoing){
         scene.gamegoing = false;
         scene.txt = scene.add.text(game.config.width/7,game.config.height/2,"Game Over, Press Space to restart", { fontSize: 22 });
+        this.scene.hit = this.scene.sound.add('hit');
+        this.scene.hit.play();
+        this.scene.laugh = this.scene.sound.add('laugh');
+        this.scene.laugh.play();
+        this.scene.runner.sprite.anims.play('runner_fall');
+        this.scene.runner.sprite.collideWorldBounds = false;
+        }
       });
 
       //scene.physics.add.collider(scene.grounds, this.sprite);

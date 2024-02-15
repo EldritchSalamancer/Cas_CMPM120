@@ -18,6 +18,7 @@ class Ground extends Phaser.GameObjects.Sprite {
       this.endingx = -game.config.width/5;
 
       this.sprite = sprite;
+      this.sprite.scaleX = 20
       this.scene = scene;
     }
 
@@ -67,7 +68,7 @@ class Ground extends Phaser.GameObjects.Sprite {
             //generates random position for new obstacle
             //if(this.scene.spawncount != 0){ //doesnt spawn a survivor on the same space as a spear
                 //while(true){
-                var randrange = 40 + (Math.random() * 80);
+                var randrange = 80 + (Math.random() * 120);
                 if(randrange/spearrandrange < 0.2 && randrange/spearrandrange > -0.2){
                     //console.log("spear and survivor are too close, increasing height")
                     randrange += 50
@@ -80,16 +81,18 @@ class Ground extends Phaser.GameObjects.Sprite {
         }
 
         //spawns floorspikes
-        if(this.scene.time > 20 && (this.scene.time % this.scene.spikerate) == 0){
-            var newobst = new Spike(this.scene, this.sprite.body.x, this.sprite.body.y - 20, 'spaceship', 0, this).setOrigin(0, 0);
-            if(this.scene.time > 60){
+        if(this.scene.time > 20 && (this.scene.time % this.scene.spikerate) == 0 && this.scene.spawncount != 0){
+            var newobst = new Spike(this.scene, this.sprite.body.x, this.sprite.body.y - 40, 'spaceship', 0, this).setOrigin(0, 0);
+            if(this.scene.time > 80){
                 var newobst = new Spike(this.scene, this.sprite.body.x + this.sprite.body.width, this.sprite.body.y - 20, 'spaceship', 0, this).setOrigin(0, 0);
+
+                this.scene.spikerate = Math.ceil(Math.random() * 4) + 3;
             }
         }
 
         //spawns falling pokers
-        if(this.scene.time > 80 && (this.scene.time % this.scene.pokerrate) == 0){
-            var newobst = new Poker(this.scene, this.sprite.body.x, -380, 'spaceship', 0, this).setOrigin(0, 0);
+        if(this.scene.time > 40 && (this.scene.time % this.scene.pokerrate) == 0){
+            var newobst = new Poker(this.scene, this.sprite.body.x, -170, 'spaceship', 0, this).setOrigin(0, 0);
         }
 
         //every 1
