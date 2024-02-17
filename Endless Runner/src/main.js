@@ -14,6 +14,7 @@ exemplary of the class, but I am proud that I was able to put together a cohesiv
 minimalistic style. My greatest artistic feat being the layered ground the player runs across, it's joint pieces creating
 a three dimensional effect in the game. The music is also particularly fitting for the setting, the proper
 combination of energatic and  for facing off a mind boggling end of the world senario.
+
 The technically interesting feat I have achieved also has to do with dynamic grounding 
 system I have used to control obstacle and pickup spawns. The type and number of obstacles will dynamically grow over time,
 but may be overcome with the stored "bonus jumps" the player has collected. While the player may be limited to the standard move and jump
@@ -21,6 +22,9 @@ options, the ability to collect and store jumps for later use placed a long-term
 the regular short term manuvering gameplay. The player may store a maximum of four additional bonus jumps at a time, each one for a
 survivor rescued.
 
+For the values seplayed during the games, the "survivors saved" is a total count of the amount of power ups one has collected, and it
+meant to represent the #of points one earned in a particular run. The Boosts variable showcases how many remaining double jumps one has remaining.
+The "wrath" ticker represents showcasing the how fast the game is spedup by, and is meant to represent the Angel's increased anger at your character's survival.
 Total: 20 points
 */
 
