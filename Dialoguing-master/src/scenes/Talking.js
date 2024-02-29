@@ -55,7 +55,7 @@ class Talking extends Phaser.Scene {
         this.jove = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'jove').setOrigin(0, 1)
         this.vriska = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y+8, 'vriska').setOrigin(0, 1)
         this.vriska.scaleX = 0.5; this.vriska.scaleY = 0.5; 
-
+        //
         // input
         cursors = this.input.keyboard.createCursorKeys()
 
