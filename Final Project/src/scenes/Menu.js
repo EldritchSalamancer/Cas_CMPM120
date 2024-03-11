@@ -5,26 +5,37 @@ class Menu extends Phaser.Scene {
 
     preload() {
 
-      this.load.image('title', './assets/Title Screen.png');
+        this.load.image('title', './assets/images/Title Screen.png');
+        this.load.audio('select', './assets/sounds/Select.flac');
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        //keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
-        this.load.image('spaceship', './assets/spaceship.png');
-        this.load.image('spikes', './assets/Spikes.png');
-        
-        this.load.spritesheet('arrows', './assets/Holy Arrow.png', {
+        this.load.audio('shopmusic', './assets/sounds/ShortElevator.wav');
+        this.load.audio('cash', './assets/sounds/CashRegister.wav');
+        this.load.image('background', './assets/images/Store.bmp');
+        this.load.spritesheet('shopghost', './assets/images/ShopGhost.png', {
             frameWidth: 151,
             frameHeight: 300,
+            startFrame: 0,
+            endFrame: 2
+        });
+
+        this.load.spritesheet('shopbutton', './assets/images/ShopButton.png', {
+            frameWidth: 79,
+            frameHeight: 40,
             startFrame: 0,
             endFrame: 1
           });
 
-          this.load.spritesheet('shopbutton', './assets/ShopButton.png', {
-            frameWidth: 80,
-            frameHeight: 40,
+        /*this.load.image('spaceship', './assets/spaceship.png');
+        //this.load.image('spikes', './assets/Spikes.png');
+        
+        this.load.spritesheet('arrows', './assets/Holy Arrow.png', {
+            frameWidth: 151,
+            frameHeight: 300,
             startFrame: 0,
             endFrame: 1
           });
@@ -58,7 +69,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('laugh', './assets/EvilLaugh.mp3')
         this.load.audio('collect', './assets/Collect.wav')
 
-        this.txtcheck = false;
+        this.txtcheck = false;*/
         //defines input
         // define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -71,12 +82,16 @@ class Menu extends Phaser.Scene {
     create() {
         this.title = this.add.sprite(0, 0, 'title').setOrigin(0, 0);
         this.title.setScale(1);
+
+        this.select = this.sound.add('select', {volume: 0.9});
+  
         
     }
 
 
     update() {
       if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+        this.select.play();
         this.scene.start("shopScene");
       }
     }
