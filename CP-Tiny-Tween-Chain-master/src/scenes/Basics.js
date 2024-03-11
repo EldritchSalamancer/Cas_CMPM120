@@ -48,7 +48,7 @@ class Basics extends Phaser.Scene {
             onComplete: () => {
                 this.instructionText.text = 'Tomato tween complete!'
             }
-        })
+        });
 
         //create tweenchain
         let pearTweenChain = this.tweens.chain({

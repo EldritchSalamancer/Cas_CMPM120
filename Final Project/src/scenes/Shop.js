@@ -137,14 +137,16 @@ class Shop extends Phaser.Scene {
                 this.select.play();
                 //console.log("selection is: " + this.selection);
             }
-            if(Phaser.Input.Keyboard.JustDown(keySPACE) &&  this.selection != this.buttons.length - 1){
-                if(this.selection != this.buttons.length - 1 && this.buttons[this.selection].txt.text != "Sold!"){
+            if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+                if(this.selection != this.buttons.length - 1 && this.buttons[this.selection].txt.text != "Sold!" ){
                     this.cash.play();
                     this.buttons[this.selection].sprite.tint = 0x004000;
                     this.buttons[this.selection].txt.text = "Sold!";
                 }
-                else{
-                    this.select.play();
+                else if(this.buttons[this.selection].txt.text == "Exit"){
+                    //this.select.play();
+                    this.select.play()
+                    this.scene.start("playScene");
                 }
             }
         
