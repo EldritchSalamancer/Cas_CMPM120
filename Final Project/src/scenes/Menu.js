@@ -7,6 +7,7 @@ class Menu extends Phaser.Scene {
 
         this.load.image('title', './assets/images/Title Screen.png');
         this.load.audio('select', './assets/sounds/Select.flac');
+        this.load.audio('pew', './assets/sounds/Laser.wav');
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -16,6 +17,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('shopmusic', './assets/sounds/ShortElevator.wav');
         this.load.audio('cash', './assets/sounds/CashRegister.wav');
         this.load.image('background', './assets/images/Store.bmp');
+        this.load.image('laser', './assets/images/Laser.png');
         this.load.spritesheet('shopghost', './assets/images/ShopGhost.png', {
             frameWidth: 151,
             frameHeight: 300,

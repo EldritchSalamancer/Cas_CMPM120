@@ -8,16 +8,21 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         //this.load.path = './assets/'
-        this.load.spritesheet('slime', 'slime.png', {
+        this.load.spritesheet('slime', './assets/tilemap/slime.png', {
             frameWidth: 16,
             frameHeight: 16
         })
 
-        this.load.image('tilesetImage', 'tileset.png');
-        this.load.tilemapTiledJSON('tilemapJSON', "overworld3.json");
+        this.load.image('tilesetImage', './assets/tilemap/tileset.png');
+        this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/overworld3.json");
     }
-
+    
     create() {
         //tilemap stuff
         const map = this.add.tilemap('tilemapJSON');
@@ -57,6 +62,8 @@ class Play extends Phaser.Scene {
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
+
+        this.lasersound = this.sound.add('pew', {volume: 0.2});
     }
 
     update() {
@@ -76,5 +83,12 @@ class Play extends Phaser.Scene {
 
         this.direction.normalize()
         this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+
+        //spawns ghostfighting lasers
+        if(Phaser.Input.Keyboard.DownDuration(keySPACE, 200)){
+            //console.log("space is down");
+            this.lasersound.play();
+            var laser = new Laser(this, this.slime.x, this.slime.y, 'laser', 0).setOrigin(0, 0)
+        }
     }
 }
