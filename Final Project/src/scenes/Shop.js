@@ -100,7 +100,7 @@ class Shop extends Phaser.Scene {
             //button.frame = 0;
             //button.scaleX = 1.5; button.scaleY = 1.5;
             //button.anims.play('unsel_button');
-            var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(50 * (i+1))).setOrigin(0, 0)
+            var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(50 * (i+1)), 50 * (i+1)).setOrigin(0, 0)
             this.buttons.push(button);
         }
         //var button = new Button(this, config.width - 80, -config.height - 40, 'checkers', "Cost").setOrigin(0, 0)

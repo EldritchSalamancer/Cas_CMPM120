@@ -13,6 +13,10 @@ class Play extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         //this.load.path = './assets/'
         this.load.spritesheet('slime', './assets/tilemap/slime.png', {
             frameWidth: 16,
@@ -36,29 +40,64 @@ class Play extends Phaser.Scene {
 
         
 
-        // add slime
-        this.slime = this.physics.add.sprite(32, 32, 'slime', 0)
-        this.slime.body.setCollideWorldBounds(true)
+        // add player
+        /*this.buster = this.physics.add.sprite(32, 32, 'buster', 0)
+        this.buster.body.setCollideWorldBounds(true)*/
 
-        // slime animation
+        // buster animation animation
         this.anims.create({
-            key: 'jiggle',
+            key: 'standr',
             frameRate: 8,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('slime', {
+            frames: this.anims.generateFrameNumbers('buster', {
+                start: 0,
+                end: 0
+            })
+        })
+        // buster animation animation
+        this.anims.create({
+            key: 'walkr',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('buster', {
                 start: 0,
                 end: 1
             })
         })
-        this.slime.play('jiggle');
+        // buster animation animation
+        this.anims.create({
+            key: 'standl',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('buster', {
+                start: 2,
+                end: 2
+            })
+        })
+        // buster animation animation
+        this.anims.create({
+            key: 'walkl',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('buster', {
+                start: 2,
+                end: 3
+            })
+        })
+
+        this.playerdir = "up";
+        this.player = new Buster (this, 200, 200, 'laser', 0, "up").setOrigin(0, 0)
+        this.player.sprite.play('standr');
+
+
 
         this.cameras.main.setBounds(0, 0, map.widthInPixels);
-        this.cameras.main.startFollow(this.slime, true, 0.25, 0.25);
+        this.cameras.main.startFollow(this.player.sprite, true, 0.25, 0.25);
 
         this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
 
-        this.physics.add.collider(this.slime, terrainLayer);
-        this.physics.add.collider(this.slime, treeLayer);
+        this.physics.add.collider(this.player.sprite, terrainLayer);
+        this.physics.add.collider(this.player.sprite, treeLayer);
 
         // input
         this.cursors = this.input.keyboard.createCursorKeys()
@@ -67,8 +106,8 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        // slime movement
-        this.direction = new Phaser.Math.Vector2(0)
+        // player movement
+        /*this.direction = new Phaser.Math.Vector2(0)
         if(this.cursors.left.isDown) {
             this.direction.x = -1
         } else if(this.cursors.right.isDown) {
@@ -82,13 +121,8 @@ class Play extends Phaser.Scene {
         }
 
         this.direction.normalize()
-        this.slime.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y)
+        this.player.sprite.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y);*/
+        this.player.update();
 
-        //spawns ghostfighting lasers
-        if(Phaser.Input.Keyboard.DownDuration(keySPACE, 200)){
-            //console.log("space is down");
-            this.lasersound.play();
-            var laser = new Laser(this, this.slime.x, this.slime.y, 'laser', 0).setOrigin(0, 0)
-        }
     }
 }

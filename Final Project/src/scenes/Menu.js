@@ -32,6 +32,13 @@ class Menu extends Phaser.Scene {
             endFrame: 1
           });
 
+          this.load.spritesheet('buster', './assets/images/Buster.png', {
+            frameWidth: 21,
+            frameHeight: 30,
+            startFrame: 0,
+            endFrame: 3
+          });
+
         /*this.load.image('spaceship', './assets/spaceship.png');
         //this.load.image('spikes', './assets/Spikes.png');
         
