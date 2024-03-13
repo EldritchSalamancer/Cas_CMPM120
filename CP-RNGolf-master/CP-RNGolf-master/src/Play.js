@@ -84,9 +84,6 @@ class Play extends Phaser.Scene {
             AddListen(this);
         });
 
-        // ball/wall collision
-        this.physics.add.collider(this.balls, this.walls)
-
         // ball/one-way collision
         this.physics.add.collider(this.balls, this.oneWay)
 

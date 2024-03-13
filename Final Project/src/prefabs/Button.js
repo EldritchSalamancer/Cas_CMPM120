@@ -1,5 +1,5 @@
 class Button extends Phaser.GameObjects.Sprite {
-    constructor(scene, x, y, texture, frame, tex, cost) {
+    constructor(scene, x, y, texture, frame, text, cost) {
       super(scene, x, y, texture, frame);
       
       this.sprite = scene.physics.add.sprite(x, y, 'shopbutton');

@@ -50,6 +50,7 @@ class Shop extends Phaser.Scene {
             frameRate: 4,
             repeat: -1
         });
+        this.moneytxt = this.add.text(config.width - 120, 20, "Money: " + money, {color: "black"});
         /*if(this.runs <= 1){
         this.anims.create({
             key: 'arrow',
@@ -139,16 +140,22 @@ class Shop extends Phaser.Scene {
             }
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
                 if(this.selection != this.buttons.length - 1 && this.buttons[this.selection].txt.text != "Sold!" ){
-                    this.cash.play();
-                    this.buttons[this.selection].sprite.tint = 0x004000;
-                    this.buttons[this.selection].txt.text = "Sold!";
+                    if(this.buttons[this.selection].cost <= money){
+                        money -= this.buttons[this.selection].cost;
+                        this.cash.play();
+                        this.buttons[this.selection].sprite.tint = 0x004000;
+                        this.buttons[this.selection].txt.text = "Sold!"
+                    }
                 }
                 else if(this.buttons[this.selection].txt.text == "Exit"){
                     //this.select.play();
-                    this.select.play()
+                    this.select.play();
+                    this.music.stop();
                     this.scene.start("playScene");
                 }
             }
+
+            this.moneytxt.text = "Money: " + money;
         
     }
         

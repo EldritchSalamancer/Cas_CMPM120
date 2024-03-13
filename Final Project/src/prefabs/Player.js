@@ -109,7 +109,7 @@ class Buster extends Phaser.GameObjects.Sprite {
         
 
         //spawns ghostfighting lasers
-        console.log("player dir is: " + this.playerdir);
+        //console.log("player dir is: " + this.playerdir);
         if(Phaser.Input.Keyboard.DownDuration(keySPACE, 200)){
             //console.log("space is down");
            this.scene.lasersound.play();

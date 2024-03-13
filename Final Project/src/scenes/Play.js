@@ -90,9 +90,9 @@ class Play extends Phaser.Scene {
         this.player.sprite.play('standr');
 
 
-
+        this.moneytxt = this.add.text(config.width - 120, 20, "Money: " + money);
         this.cameras.main.setBounds(0, 0, map.widthInPixels);
-        this.cameras.main.startFollow(this.player.sprite, true, 0.25, 0.25);
+        //this.cameras.main.startFollow(this.player.sprite, true, 0.25, 0.25);
 
         this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
 
@@ -103,6 +103,47 @@ class Play extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys()
 
         this.lasersound = this.sound.add('pew', {volume: 0.2});
+
+        this.lasers = this.add.group([]);
+        this.ghosts = this.add.group([]);
+        this.ghostarr = [];
+
+        //  ghost/laser collision
+        this.physics.add.collider(this.lasers, this.ghosts, (laser, ghost) => {
+            for(var i = 0; i < this.ghostarr.length; i++){
+                if(this.ghostarr[i] == ghost){
+                    this.ghostarr.splice(i, 1);
+                    break;
+                }
+            }
+            ghost.destroyed = true;
+            //ghost.destroy();
+            money += 20;
+        })
+
+        //  player/laser collision
+        this.physics.add.collider(this.player.sprite, this.ghosts, (player, ghost) => {
+            for(var i = 0; i < this.ghostarr.length; i++){
+                if(this.ghostarr[i] == ghost){
+                    this.ghostarr.splice(i, 1);
+                    break;
+                }
+            }
+            //ghost.destroy();
+            ghost.destroyed = true;
+            money -= 50;
+            if(money < 0){
+                money = 0;
+            }
+        })
+
+        this.store = this.physics.add.sprite(100, 100, "shopbutton");
+        this.shoptxt = this.add.text(100, 100, "STORE");
+        this.physics.add.collider(this.player.sprite, this.store, (player, store) => {
+            this.scene.start("shopScene");
+        })
+
+        this.time = 0;
     }
 
     update() {
@@ -124,5 +165,29 @@ class Play extends Phaser.Scene {
         this.player.sprite.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y);*/
         this.player.update();
 
+        for(var i = 0; i < this.ghostarr.length; i++){
+            this.ghostarr[i].update();
+        }
+        this.moneytxt.text = "Money: " + money;
+
+        this.time += 1;
+        if(this.time >= 50){
+            console.log("spawning ghost");
+            this.time = 0;
+            var random = Math.ceil(Math.random() * 4);
+            if(random == 1){
+                var newghost = new Ghost (this, Math.random() * config.width, -50, 'ghost', 0).setOrigin(0, 0);
+            }
+            if(random == 2){
+                var newghost = new Ghost (this, -50, Math.random() * config.height, 'ghost', 0).setOrigin(0, 0);
+            }
+            if(random == 3){
+                var newghost = new Ghost (this,  Math.random() * config.width, config.height + 50, 'ghost', 0).setOrigin(0, 0);
+            }
+            if(random == 4){
+                var newghost = new Ghost (this, config.width + 50, Math.random() * config.height, 'ghost', 0).setOrigin(0, 0);
+            }
+            
+        }
     }
 }

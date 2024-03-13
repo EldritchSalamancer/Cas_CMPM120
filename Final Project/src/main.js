@@ -9,7 +9,6 @@ let config = {
     scrollSpeed: 200,
     scene: [ Menu, Play, Shop ],
     //scene: [Play], //start in play for debugging
-
     physics: {
         default: 'arcade',
         arcade: {
@@ -17,11 +16,12 @@ let config = {
           debug: false
         }
     }
-    
 }
 
 
 let game = new Phaser.Game(config);
+let money = 300;
+let bought = [false,false,false,false,false,false];
 
 // reserve keyboard bindings
 //let keyFIRE, keyRESET, keyLEFT, keyRIGHT, keySPACE;

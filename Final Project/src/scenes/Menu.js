@@ -18,6 +18,7 @@ class Menu extends Phaser.Scene {
         this.load.audio('cash', './assets/sounds/CashRegister.wav');
         this.load.image('background', './assets/images/Store.bmp');
         this.load.image('laser', './assets/images/Laser.png');
+        this.load.image('ghost', './assets/images/Ghost.png');
         this.load.spritesheet('shopghost', './assets/images/ShopGhost.png', {
             frameWidth: 151,
             frameHeight: 300,

@@ -3,7 +3,7 @@ class Laser extends Phaser.GameObjects.Sprite {
       super(scene, x, y, texture, frame);
       
       this.sprite = scene.physics.add.sprite(x + 20, y + 30, 'laser');
-      //button.frame = 0;
+      scene.lasers.add(this.sprite);
       this.sprite.scaleX = 0.7; this.sprite.scaleY = 0.7;
       //his.sprite.anims.play('unsel_button');  
         //console.log("making new laser");
@@ -33,8 +33,8 @@ class Laser extends Phaser.GameObjects.Sprite {
         this.sprite.angle = 90;
       }
       
-      console.log("laser dir is: " + dir);
-      console.log("laser xspeed is: " + this.xspeed);
+      //console.log("laser dir is: " + dir);
+      //console.log("laser xspeed is: " + this.xspeed);
       this.sprite.body.setVelocity(this.xspeed, this.yspeed);
       this.sprite.setVelocity(this.scene.VEL * this.xspeed * 2, this.scene.VEL * this.yspeed * 2);
     }
