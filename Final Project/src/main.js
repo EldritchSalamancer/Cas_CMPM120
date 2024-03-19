@@ -22,6 +22,7 @@ let config = {
 let game = new Phaser.Game(config);
 let money = 300;
 let bought = [false,false,false,false,false,false];
+let hatcolor = 0xFFFFFF;
 
 // reserve keyboard bindings
 //let keyFIRE, keyRESET, keyLEFT, keyRIGHT, keySPACE;

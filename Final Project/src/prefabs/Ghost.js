@@ -12,7 +12,7 @@ class Ghost extends Phaser.GameObjects.Sprite {
       scene.ghosts.add(this.sprite);
       scene.ghostarr.push(this);
       
-      this.speed = 0.6;
+      this.speed = 1.2;
       this.sprite.destroyed = false;
     }
 

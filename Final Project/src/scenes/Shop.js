@@ -97,11 +97,19 @@ class Shop extends Phaser.Scene {
         this.buttons = [];
 
         for(var i = 0; i < 7; i++){
-            //var button = this.physics.add.sprite(60, -40 + 70 * (i+1), 'shopbutton');
-            //button.frame = 0;
-            //button.scaleX = 1.5; button.scaleY = 1.5;
-            //button.anims.play('unsel_button');
-            var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(50 * (i+1)), 50 * (i+1)).setOrigin(0, 0)
+            
+            var hatc;
+            switch(i){
+                case 0: hatc = 0xFF0000; break;
+                case 1: hatc = 0x00FF00; break;
+                case 2: hatc = 0x0000FF; break;
+                case 3: hatc = 0xFF00FF; break;
+                case 4: hatc = 0xFFFF00; break;
+                case 5: hatc = 0xFF00FF; break;
+                case 6: hatc = 0x000000; break;
+
+            }
+            var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(50 * (i+1)), 50 * (i+1), hatc).setOrigin(0, 0)
             this.buttons.push(button);
         }
         //var button = new Button(this, config.width - 80, -config.height - 40, 'checkers', "Cost").setOrigin(0, 0)
@@ -144,6 +152,7 @@ class Shop extends Phaser.Scene {
                         money -= this.buttons[this.selection].cost;
                         this.cash.play();
                         this.buttons[this.selection].sprite.tint = 0x004000;
+                        hatcolor = this.buttons[this.selection].color;
                         this.buttons[this.selection].txt.text = "Sold!"
                     }
                 }

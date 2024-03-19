@@ -22,15 +22,17 @@ class Play extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 16
         })
-
-        this.load.image('tilesetImage', './assets/tilemap/tileset.png');
-        this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/overworld3.json");
+465
+        this.load.image('tilesetImage', './assets/tilemap/Tileset2.png');
+        this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset4.json");
+        //this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset4.tmj");
     }
     
     create() {
         //tilemap stuff
+        //const map = this.add.tilemap('tilemapJSON');
         const map = this.add.tilemap('tilemapJSON');
-        const tileset = map.addTilesetImage('tileset', 'tilesetImage');
+        const tileset = map.addTilesetImage('tileset3', 'tilesetImage');
         const bgLayer = map.createLayer('Background', tileset, 0, 0);
         const terrainLayer = map.createLayer('Terrain', tileset, 0, 0);
         const treeLayer = map.createLayer('Trees', tileset, 0, 0);
@@ -117,11 +119,12 @@ class Play extends Phaser.Scene {
                 }
             }
             ghost.destroyed = true;
+            this.zap.play();
             //ghost.destroy();
             money += 20;
         })
 
-        //  player/laser collision
+        //  player/ghost collision
         this.physics.add.collider(this.player.sprite, this.ghosts, (player, ghost) => {
             for(var i = 0; i < this.ghostarr.length; i++){
                 if(this.ghostarr[i] == ghost){
@@ -135,11 +138,21 @@ class Play extends Phaser.Scene {
             if(money < 0){
                 money = 0;
             }
+            this.spook.play();
         })
 
         this.store = this.physics.add.sprite(100, 100, "shopbutton");
-        this.shoptxt = this.add.text(100, 100, "STORE");
+        this.store.visible = false;
+        this.store.scaleX = 0.5;
+
+        this.music = this.sound.add('gamemusic', {volume: 0.2});
+        this.music.loop = true;
+        this.music.play();
+        this.zap = this.sound.add('zap', {volume: 0.5});
+        this.spook = this.sound.add('spook', {spook: 0.5});
+        //this.shoptxt = this.add.text(100, 100, "STORE");
         this.physics.add.collider(this.player.sprite, this.store, (player, store) => {
+            this.music.stop();
             this.scene.start("shopScene");
         })
 

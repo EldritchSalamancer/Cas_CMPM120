@@ -15,7 +15,10 @@ class Menu extends Phaser.Scene {
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
 
         this.load.audio('shopmusic', './assets/sounds/ShortElevator.wav');
+        this.load.audio('gamemusic', './assets/sounds/Music.wav');
+        this.load.audio('zap', './assets/sounds/zap.wav');
         this.load.audio('cash', './assets/sounds/CashRegister.wav');
+        this.load.audio('spook', './assets/sounds/ghost.wav');
         this.load.image('background', './assets/images/Store.bmp');
         this.load.image('laser', './assets/images/Laser.png');
         this.load.image('ghost', './assets/images/Ghost.png');
@@ -94,7 +97,6 @@ class Menu extends Phaser.Scene {
         this.title.setScale(1);
 
         this.select = this.sound.add('select', {volume: 0.9});
-  
         
     }
 
@@ -102,7 +104,8 @@ class Menu extends Phaser.Scene {
     update() {
       if(Phaser.Input.Keyboard.JustDown(keySPACE)){
         this.select.play();
-        this.scene.start("shopScene");
+        //this.scene.start("shopScene");
+        this.scene.start("playScene");
       }
     }
 }
