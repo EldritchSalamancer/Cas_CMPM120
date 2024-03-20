@@ -13,15 +13,18 @@ class Menu extends Phaser.Scene {
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.load.audio('shopmusic', './assets/sounds/ShortElevator.wav');
         this.load.audio('gamemusic', './assets/sounds/Music.wav');
         this.load.audio('zap', './assets/sounds/zap.wav');
         this.load.audio('cash', './assets/sounds/CashRegister.wav');
         this.load.audio('spook', './assets/sounds/ghost.wav');
-        this.load.image('background', './assets/images/Store.bmp');
+        this.load.audio('laugh', './assets/sounds/EvilLaugh.ogg');
+        this.load.image('background', './assets/images/Store.png');
         this.load.image('laser', './assets/images/Laser.png');
         this.load.image('ghost', './assets/images/Ghost.png');
+        this.load.image('hud', './assets/images/HUD.png');
         this.load.spritesheet('shopghost', './assets/images/ShopGhost.png', {
             frameWidth: 151,
             frameHeight: 300,
@@ -100,6 +103,8 @@ class Menu extends Phaser.Scene {
 
 
     create() {
+        this.laugh = this.sound.add('laugh', {volume: 0.2});
+        this.laugh.play();
         this.title = this.add.sprite(0, 0, 'title').setOrigin(0, 0);
         this.title.setScale(1);
 
@@ -182,7 +187,7 @@ class Menu extends Phaser.Scene {
 
 
     update() {
-      if(Phaser.Input.Keyboard.JustDown(keySPACE)){
+      if(Phaser.Input.Keyboard.JustDown(keySPACE) || Phaser.Input.Keyboard.JustDown(keyENTER)){
         this.select.play();
         //this.scene.start("shopScene");
         this.scene.start("playScene");

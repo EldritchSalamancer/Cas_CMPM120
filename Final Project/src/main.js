@@ -24,10 +24,13 @@ let money = 300;
 let bought = [false,false,false,false,false,false];
 let hatcolor = 0xFFFFFF;
 let hat = 0;
+let spawnrate = 50;
+let spawncount = 0;
+let health = 5;
 
 // reserve keyboard bindings
 //let keyFIRE, keyRESET, keyLEFT, keyRIGHT, keySPACE;
-let keySPACE, keyLEFT, keyRIGHT, keyDOWN, keyUP;
+let keySPACE, keyLEFT, keyRIGHT, keyDOWN, keyUP, keyENTER;
 let keyW, keyA, keyS, keyD;
 
 // set UI sizes

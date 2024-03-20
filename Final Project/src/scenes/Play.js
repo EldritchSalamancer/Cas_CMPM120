@@ -24,7 +24,7 @@ class Play extends Phaser.Scene {
         })
 465
         this.load.image('tilesetImage', './assets/tilemap/Tileset2.png');
-        this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset4.json");
+        this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset6.json");
         //this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset4.tmj");
     }
     
@@ -41,7 +41,7 @@ class Play extends Phaser.Scene {
         treeLayer.setCollisionByProperty({collides: true});
 
         
-
+        this.HUD = this.physics.add.sprite(320, 445, "hud"); this.HUD.scaleY = 0.7
         // add player
         /*this.buster = this.physics.add.sprite(32, 32, 'buster', 0)
         this.buster.body.setCollideWorldBounds(true)*/
@@ -91,9 +91,14 @@ class Play extends Phaser.Scene {
         //this.playerhat = new Hat(this, 200, 200, 'hats', 0, hat).setOrigin(0, 0);
         this.player = new Buster(this, 200, 200, 'laser', 0, this.playerhat).setOrigin(0, 0);
         this.player.sprite.play('standr');
+        var xtxt = "X".repeat(health);
+        for(var i = 0; i < this.health; i++){
+            xtxt = xtxt + "X";
+        }
 
-
-        this.moneytxt = this.add.text(config.width - 120, 20, "Money: " + money);
+        this.moneytxt = this.add.text(config.width - 110, config.height - 35, money, { fontSize: 24, color: "black", backgroundColor: "#ADD8E6"});
+        this.questtxt = this.add.text(config.width - 440, config.height - 35, "Fend off the Ghost invasion!", { fontSize: 12, color: "black"});
+        this.healthtxt = this.add.text(40, config.height - 35,  xtxt, { fontSize: 24, color: "black", backgroundColor: "#ADD8E6"});
         this.cameras.main.setBounds(0, 0, map.widthInPixels);
         //this.cameras.main.startFollow(this.player.sprite, true, 0.25, 0.25);
 
@@ -136,6 +141,9 @@ class Play extends Phaser.Scene {
             //ghost.destroy();
             ghost.destroyed = true;
             money -= 50;
+            if(health > 0){
+                health -= 1
+            } 
             if(money < 0){
                 money = 0;
             }
@@ -146,7 +154,7 @@ class Play extends Phaser.Scene {
         this.store.visible = false;
         this.store.scaleX = 0.5;
 
-        this.music = this.sound.add('gamemusic', {volume: 0.2});
+        this.music = this.sound.add('gamemusic', {volume: 0.5});
         this.music.loop = true;
         this.music.play();
         this.zap = this.sound.add('zap', {volume: 0.5});
@@ -158,6 +166,9 @@ class Play extends Phaser.Scene {
         })
 
         this.time = 0;
+
+        
+        //old
     }
 
     update() {
@@ -174,19 +185,38 @@ class Play extends Phaser.Scene {
         } else if(this.cursors.down.isDown) {
             this.direction.y = 1
         }
-
+        
         this.direction.normalize()
         this.player.sprite.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y);*/
+        if(money > 9999){
+            money = 9999;
+        }
         this.player.update();
 
         for(var i = 0; i < this.ghostarr.length; i++){
             this.ghostarr[i].update();
         }
-        this.moneytxt.text = "Money: " + money;
+        //this.moneytxt.text = "Money: " + money;
+        this.moneytxt.text = money;
+        var xtxt = ""
+        for(var i = 0; i < this.health; i++){
+            xtxt = xtxt + "X";
+        }
+        this.healthtxt.text = "X".repeat(health);
+
+        if(health <= 0){
+            hat = 0;
+            spawnrate = 50;
+            spawncount = 0;
+            health = 5;
+            this.music.stop();
+            this.scene.start("menuScene");
+        }
 
         this.time += 1;
-        if(this.time >= 50){
-            console.log("spawning ghost");
+        if(this.time >= spawnrate){
+            spawncount += 1;
+            //console.log("spawning ghost");
             this.time = 0;
             var random = Math.ceil(Math.random() * 4);
             if(random == 1){
@@ -202,6 +232,17 @@ class Play extends Phaser.Scene {
                 var newghost = new Ghost (this, config.width + 50, Math.random() * config.height, 'ghost', 0).setOrigin(0, 0);
             }
             
+        }
+
+        if(spawncount >= 8){
+            //console.log("increasing spawnrate");
+            spawncount = 0;
+            if(spawnrate > 25){
+                spawnrate -= 1;
+            }
+            if(health < 5){
+                health += 1;
+            }
         }
     }
 }

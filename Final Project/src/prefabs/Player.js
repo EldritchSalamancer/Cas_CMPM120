@@ -36,12 +36,14 @@ class Buster extends Phaser.GameObjects.Sprite {
             this.facingright = false;
             this.sprite.play("walkl")
             this.playerdir = "left";
+            this.hatp.sprite.scaleX = -1;
             this.walking = true;
         }
         else if(Phaser.Input.Keyboard.JustDown(keyRIGHT)){
             this.facingright = true;
             this.sprite.play("walkr")
             this.playerdir = "right";
+            this.hatp.sprite.scaleX = 1;
             this.walking = true;
         }
         else if(Phaser.Input.Keyboard.JustDown(keyUP)){
@@ -113,8 +115,8 @@ class Buster extends Phaser.GameObjects.Sprite {
         }*/
 
         
-        this.hatp.sprite.x = this.sprite.body.x + 14;
-        this.hatp.sprite.y = this.sprite.body.y + 10;
+        this.hatp.sprite.x = this.sprite.body.x + 17;
+        this.hatp.sprite.y = this.sprite.body.y + 7;
 
         
 

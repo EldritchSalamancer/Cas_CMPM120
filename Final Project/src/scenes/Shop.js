@@ -104,10 +104,10 @@ class Shop extends Phaser.Scene {
             switch(i){
                 case 0: hatc = 0xFF0000; cost = 50;  dialog="Simple Cap.\nYour Specterfighter uniform."; break;
                 case 1: hatc = 0x00FF00; cost = 200;  dialog="Cute Cat Hat.\nAn artist would wear this."; break;
-                case 2: hatc = 0x0000FF; cost = 500;  dialog="Spades Fedora.\nYou feel like a member of the midnight crew."; break;
-                case 3: hatc = 0xFF00FF; cost = 1500;  dialog="Crowbar's Helmet.\nWon't protect from actual crowbars."; break;
-                case 4: hatc = 0xFFFF00; cost = 3000;  dialog="Familiar Headband.\nFound in the Garbage."; break;
-                case 5: hatc = 0xFF00FF; cost = 5000;  dialog="Tentacle Hair.\nOr is this a mop?."; break;
+                case 2: hatc = 0x0000FF; cost = 400;  dialog="Spades Fedora.\nYou feel like a member of the midnight crew."; break;
+                case 3: hatc = 0xFF00FF; cost = 1000;  dialog="Crowbar's Helmet.\nWon't protect from actual crowbars."; break;
+                case 4: hatc = 0xFFFF00; cost = 2000;  dialog="Familiar Headband.\nFound in the Garbage."; break;
+                case 5: hatc = 0xFF00FF; cost = 4000;  dialog="Tentacle Hair.\nOr is this a mop?"; break;
                 case 6: hatc = 0x000000; cost = 9999;  dialog="Golden Crown.\nRadiates with respect."; break;
 
             }
