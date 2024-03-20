@@ -28,6 +28,13 @@ class Menu extends Phaser.Scene {
             startFrame: 0,
             endFrame: 2
         });
+        this.load.spritesheet('hats', './assets/images/Hats.png', {
+          frameWidth: 20,
+          frameHeight: 20,
+          startFrame: 0,
+          endFrame: 7
+      });
+
 
         this.load.spritesheet('shopbutton', './assets/images/ShopButton.png', {
             frameWidth: 79,
@@ -97,6 +104,79 @@ class Menu extends Phaser.Scene {
         this.title.setScale(1);
 
         this.select = this.sound.add('select', {volume: 0.9});
+
+        this.anims.create({
+          key: 'hat0',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 0,
+              end: 0
+          })
+        })
+        this.anims.create({
+          key: 'hat1',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 1,
+              end: 1
+          })
+        })
+        this.anims.create({
+          key: 'hat2',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 2,
+              end: 2
+          })
+        })
+        this.anims.create({
+          key: 'hat3',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 3,
+              end: 3
+          })
+        })
+        this.anims.create({
+          key: 'hat4',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 4,
+              end: 4
+          })
+        })
+        this.anims.create({
+          key: 'hat5',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 5,
+              end: 5
+          })
+        })
+        this.anims.create({
+          key: 'hat6',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 6,
+              end: 6
+          })
+        })
+        this.anims.create({
+          key: 'hat7',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('hats', {
+              start: 7,
+              end: 7
+          })
+        })
         
     }
 

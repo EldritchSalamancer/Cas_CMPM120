@@ -34,8 +34,8 @@ class Shop extends Phaser.Scene {
         this.ghost.scaleX = 1.3; this.ghost.scaleY = 1.3;
 
         this.textbox = new Phaser.GameObjects.Rectangle(this, config.width/2 - 170, config.height - 60, 100, 400, 0xFFFFFF);
-        this.ghosttext = this.add.text(config.width/2 - 170,config.height - 60, "What do you want to buy?", 
-        { fontSize: 22 , color: "black"});
+        this.ghosttext = this.add.text(config.width/2 - 190,config.height - 60, "What do you want to buy?", 
+        { fontSize: 12 , color: "black"});
         //this.ghost.frame = 0;
 
         this.anims.create({
@@ -99,21 +99,27 @@ class Shop extends Phaser.Scene {
         for(var i = 0; i < 7; i++){
             
             var hatc;
+            var dialog;
+            var cost;
             switch(i){
-                case 0: hatc = 0xFF0000; break;
-                case 1: hatc = 0x00FF00; break;
-                case 2: hatc = 0x0000FF; break;
-                case 3: hatc = 0xFF00FF; break;
-                case 4: hatc = 0xFFFF00; break;
-                case 5: hatc = 0xFF00FF; break;
-                case 6: hatc = 0x000000; break;
+                case 0: hatc = 0xFF0000; cost = 50;  dialog="Simple Cap.\nYour Specterfighter uniform."; break;
+                case 1: hatc = 0x00FF00; cost = 200;  dialog="Cute Cat Hat.\nAn artist would wear this."; break;
+                case 2: hatc = 0x0000FF; cost = 500;  dialog="Spades Fedora.\nYou feel like a member of the midnight crew."; break;
+                case 3: hatc = 0xFF00FF; cost = 1500;  dialog="Crowbar's Helmet.\nWon't protect from actual crowbars."; break;
+                case 4: hatc = 0xFFFF00; cost = 3000;  dialog="Familiar Headband.\nFound in the Garbage."; break;
+                case 5: hatc = 0xFF00FF; cost = 5000;  dialog="Tentacle Hair.\nOr is this a mop?."; break;
+                case 6: hatc = 0x000000; cost = 9999;  dialog="Golden Crown.\nRadiates with respect."; break;
 
             }
-            var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(50 * (i+1)), 50 * (i+1), hatc).setOrigin(0, 0)
+            //var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(50 * (i+1)), 50 * (i+1), hatc, i).setOrigin(0, 0)
+            var button = new Button(this, 60, -40 + 70 * (i+1), 'shopbutton', 0 ,"$" + String(cost), cost, hatc, i).setOrigin(0, 0)
+            button.dialog = dialog;
             this.buttons.push(button);
         }
         //var button = new Button(this, config.width - 80, -config.height - 40, 'checkers', "Cost").setOrigin(0, 0)
-        var button = new Button(this, config.width - 80, config.height - 40, 'shopbutton', 0,"Exit").setOrigin(0, 0)
+        var dialog = "I'm just kinda selling this stuff cause\nthe store owners ran off because of the ghost \ninvasion and all. What do you want to buy?";
+        var button = new Button(this, config.width - 80, config.height - 40, 'shopbutton', 0,"Exit", undefined).setOrigin(0, 0)
+        button.dialog = dialog;
         this.buttons.push(button);
         this.selection = this.buttons.length -1;
 
@@ -138,12 +144,14 @@ class Shop extends Phaser.Scene {
                 this.selection += 1;
                 //this.buttons[this.selection].txt.tint = 0x004000;
                 this.select.play();
+                this.ghosttext.text = this.buttons[this.selection].dialog;
                 //console.log("selection is: " + this.selection);
             }
             else if(Phaser.Input.Keyboard.JustDown(keyUP) && this.selection > 0){
                 this.selection -= 1;
                 //this.buttons[this.selection].sprite.tint = 0x004000;
                 this.select.play();
+                this.ghosttext.text = this.buttons[this.selection].dialog;
                 //console.log("selection is: " + this.selection);
             }
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
@@ -154,6 +162,7 @@ class Shop extends Phaser.Scene {
                         this.buttons[this.selection].sprite.tint = 0x004000;
                         hatcolor = this.buttons[this.selection].color;
                         this.buttons[this.selection].txt.text = "Sold!"
+                        hat = this.buttons[this.selection].i;
                     }
                 }
                 else if(this.buttons[this.selection].txt.text == "Exit"){

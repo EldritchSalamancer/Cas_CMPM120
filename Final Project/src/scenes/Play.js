@@ -88,7 +88,8 @@ class Play extends Phaser.Scene {
         })
 
         this.playerdir = "up";
-        this.player = new Buster (this, 200, 200, 'laser', 0, "up").setOrigin(0, 0)
+        //this.playerhat = new Hat(this, 200, 200, 'hats', 0, hat).setOrigin(0, 0);
+        this.player = new Buster(this, 200, 200, 'laser', 0, this.playerhat).setOrigin(0, 0);
         this.player.sprite.play('standr');
 
 

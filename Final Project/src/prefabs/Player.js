@@ -12,16 +12,20 @@ class Buster extends Phaser.GameObjects.Sprite {
 
       this.playerdir = "right";
       //this.txt = scene.add.text(0,0, text, { fontSize: 22 });
-
+    
       this.walking = false;
       this.facingright = true;
-
+        
       // add player
       this.sprite = scene.physics.add.sprite(x, y, 'buster', 0);
       this.sprite.scaleX = 1.5; this.sprite.scaleY = 1.5;
       this.sprite.body.setCollideWorldBounds(true);
 
-      this.hat = scene.add.rectangle(x, y, 12, 12, hatcolor);
+      //this.hat = scene.add.rectangle(x, y, 12, 12, hatcolor);
+      //this.hat = new Hat(this, x, y, 'hats', 0, hat).setOrigin(0, 0);
+      //this.hat = hat;
+      
+      this.hatp = new Hat(this.scene, 200, 200, 'hats', 0, hat).setOrigin(0, 0);
     }
 
     update(){
@@ -108,8 +112,9 @@ class Buster extends Phaser.GameObjects.Sprite {
             }
         }*/
 
-        this.hat.x = this.sprite.body.x + 14;
-        this.hat.y = this.sprite.body.y + 4;
+        
+        this.hatp.sprite.x = this.sprite.body.x + 14;
+        this.hatp.sprite.y = this.sprite.body.y + 10;
 
         
 
