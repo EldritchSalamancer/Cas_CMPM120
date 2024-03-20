@@ -36,7 +36,7 @@ class Play extends Phaser.Scene {
             xtxt = xtxt + "X";
         }
         this.moneytxt = this.add.text(config.width - 110, config.height - 35, money, { fontSize: 24, color: "black", backgroundColor: "#ADD8E6"});
-        this.questtxt = this.add.text(config.width - 440, config.height - 35, "Fend off the Ghost invasion!", { fontSize: 12, color: "black"});
+        this.questtxt = this.add.text(config.width - 428, config.height - 35, "Fend off the Ghost invasion!", { fontSize: 12, color: "black"});
         this.healthtxt = this.add.text(40, config.height - 35,  xtxt, { fontSize: 24, color: "black", backgroundColor: "#ADD8E6"});
         this.cameras.main.setBounds(0, 0, map.widthInPixels);
 

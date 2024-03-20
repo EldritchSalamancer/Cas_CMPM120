@@ -28,6 +28,7 @@ class Menu extends Phaser.Scene {
         this.load.image('ghost', './assets/images/Ghost.png');
         this.load.image('hud', './assets/images/HUD.png');
         this.load.image('controls', './assets/images/Controls.png');
+        this.load.image('credits', './assets/images/Credits.png');
         this.load.spritesheet('shopghost', './assets/images/ShopGhost.png', {
             frameWidth: 151,
             frameHeight: 300,
@@ -60,7 +61,7 @@ class Menu extends Phaser.Scene {
             frameWidth: 16,
             frameHeight: 16
           });
-465
+
           this.load.image('tilesetImage', './assets/tilemap/Tileset2.png');
           this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset6.json");
 
@@ -193,6 +194,8 @@ class Menu extends Phaser.Scene {
 
         this.controls = this.physics.add.sprite(config.width/2, config.height/2, 'controls');
         this.controls.scaleX = 0;
+        this.credits = this.physics.add.sprite(config.width/2, config.height/2, 'credits');
+        this.credits.scaleX = 0;
         this.select = this.sound.add('select', {volume: 0.2});
         
     }
@@ -207,13 +210,23 @@ class Menu extends Phaser.Scene {
       }
 
       //controls
-      else if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+      else if(Phaser.Input.Keyboard.JustDown(keyENTER) && this.credits.scaleX == 0){
         this.select.play();
         if(this.controls.scaleX == 0){
           this.controls.scaleX = 1;
         }
         else{
           this.controls.scaleX = 0;
+        }
+      }
+
+      else if(Phaser.Input.Keyboard.JustDown(keyUP) && this.controls.scaleX == 0){
+        this.select.play();
+        if(this.credits.scaleX == 0){
+          this.credits.scaleX = 1;
+        }
+        else{
+          this.credits.scaleX = 0;
         }
       }
     }
