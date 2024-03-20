@@ -124,6 +124,7 @@ class Play extends Phaser.Scene {
                     break;
                 }
             }
+            
             ghost.destroyed = true;
             this.zap.play();
             //ghost.destroy();

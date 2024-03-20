@@ -25,6 +25,7 @@ class Menu extends Phaser.Scene {
         this.load.image('laser', './assets/images/Laser.png');
         this.load.image('ghost', './assets/images/Ghost.png');
         this.load.image('hud', './assets/images/HUD.png');
+        this.load.image('controls', './assets/images/Controls.png');
         this.load.spritesheet('shopghost', './assets/images/ShopGhost.png', {
             frameWidth: 151,
             frameHeight: 300,
@@ -182,15 +183,28 @@ class Menu extends Phaser.Scene {
               end: 7
           })
         })
+
+        this.controls = this.physics.add.sprite(config.width/2, config.height/2, 'controls');
+        this.controls.scaleX = 0;
+        this.select = this.sound.add('select', {volume: 0.2});
         
     }
 
 
     update() {
-      if(Phaser.Input.Keyboard.JustDown(keySPACE) || Phaser.Input.Keyboard.JustDown(keyENTER)){
+      if(Phaser.Input.Keyboard.JustDown(keySPACE)){
         this.select.play();
         //this.scene.start("shopScene");
         this.scene.start("playScene");
+      }
+      else if(Phaser.Input.Keyboard.JustDown(keyENTER)){
+        this.select.play();
+        if(this.controls.scaleX == 0){
+          this.controls.scaleX = 1;
+        }
+        else{
+          this.controls.scaleX = 0;
+        }
       }
     }
 }
