@@ -22,6 +22,7 @@ let config = {
     width: 640,
     height: 480,
     scrollSpeed: 200,
+    autoCenter: true,
     render: {
       pixelArt: true
     },
