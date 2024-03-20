@@ -1,4 +1,20 @@
 /*
+CREATOR
+Chase Croy-Perrett
+ccroyper
+
+MAJOR COMPONENTS USED
+text objects, tilemaps, timers, physics systems, animation manager, tween manager
+
+REFERENCES
+Short Elevator Music Loop: https://freesound.org/people/BlondPanda/sounds/659889/
+Select: https://freesound.org/people/plasterbrain/sounds/396193/
+Cash Register: https://freesound.org/people/CapsLok/sounds/184438/
+Laser: https://freesound.org/people/mparsons99/sounds/89492/
+Game Music: https://freesound.org/people/vibritherabjit123/sounds/642504/
+Ghost: https://freesound.org/people/LittleRobotSoundFactory/sounds/316403/
+Zap: https://freesound.org/people/cabled_mess/sounds/351000/
+Evil Laugh: https://freesound.org/people/mrgreaper/sounds/223495/
 */
 
 //console.log("hello world! :D");
@@ -29,7 +45,6 @@ let spawncount = 0;
 let health = 5;
 
 // reserve keyboard bindings
-//let keyFIRE, keyRESET, keyLEFT, keyRIGHT, keySPACE;
 let keySPACE, keyLEFT, keyRIGHT, keyDOWN, keyUP, keyENTER;
 let keyW, keyA, keyS, keyD;
 
