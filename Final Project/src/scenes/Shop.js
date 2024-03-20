@@ -153,9 +153,3 @@ class Shop extends Phaser.Scene {
         
 
 }
-
-//function EndGame(scene){
-    //scene.time = false;
-    //scene.txt = scene.add.text(game.config.width/7,game.config.height/2,"Game Over, Press Space to restart", { fontSize: 22 });
-    
-//}
