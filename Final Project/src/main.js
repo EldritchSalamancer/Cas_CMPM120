@@ -17,12 +17,14 @@ Zap: https://freesound.org/people/cabled_mess/sounds/351000/
 Evil Laugh: https://freesound.org/people/mrgreaper/sounds/223495/
 */
 
-//console.log("hello world! :D");
 let config = {
     type: Phaser.AUTO,
     width: 640,
     height: 480,
     scrollSpeed: 200,
+    render: {
+      pixelArt: true
+    },
     scene: [ Menu, Play, Shop ],
     //scene: [Play], //start in play for debugging
     physics: {

@@ -5,9 +5,7 @@ class Menu extends Phaser.Scene {
 
     preload() {
 
-        this.load.image('title', './assets/images/Title Screen.png');
-        this.load.audio('select', './assets/sounds/Select.flac');
-        this.load.audio('pew', './assets/sounds/Laser.wav');
+        //input definitions
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
@@ -15,6 +13,10 @@ class Menu extends Phaser.Scene {
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
         keyENTER = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
+        //loads
+        this.load.image('title', './assets/images/Title Screen.png');
+        this.load.audio('select', './assets/sounds/Select.flac');
+        this.load.audio('pew', './assets/sounds/Laser.wav');
         this.load.audio('shopmusic', './assets/sounds/ShortElevator.wav');
         this.load.audio('gamemusic', './assets/sounds/Music.wav');
         this.load.audio('zap', './assets/sounds/zap.wav');
@@ -54,47 +56,14 @@ class Menu extends Phaser.Scene {
             endFrame: 3
           });
 
-        /*this.load.image('spaceship', './assets/spaceship.png');
-        //this.load.image('spikes', './assets/Spikes.png');
-        
-        this.load.spritesheet('arrows', './assets/Holy Arrow.png', {
-            frameWidth: 151,
-            frameHeight: 300,
-            startFrame: 0,
-            endFrame: 1
+          this.load.spritesheet('slime', './assets/tilemap/slime.png', {
+            frameWidth: 16,
+            frameHeight: 16
           });
+465
+          this.load.image('tilesetImage', './assets/tilemap/Tileset2.png');
+          this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset6.json");
 
-          this.load.spritesheet('survivors', './assets/SurvivorN.png', {
-            frameWidth: 60,
-            frameHeight: 60,
-            startFrame: 0,
-            endFrame: 1
-          });
-          this.load.spritesheet('runners', './assets/Runner.png', {
-            frameWidth: 60,
-            frameHeight: 60,
-            startFrame: 0,
-            endFrame: 5
-          });
-          this.load.spritesheet('angels', './assets/Angel.png', {
-            frameWidth: 100,
-            frameHeight: 100,
-            startFrame: 0,
-            endFrame: 5
-          });
-        this.load.image('checker', './assets/Checkerboard.png');
-        this.load.image('checkers', './assets/Checkerboard Slant.png');
-        this.load.image('stal', './assets/Stal.png');
-        //this.load.image('spaceship', './assets/spaceship.png');
-
-        this.load.audio('music', './assets/AlienMusic.wav')
-        this.load.audio('jump', './assets/GameJump.wav')
-        this.load.audio('hit', './assets/GameHit.wav')
-        this.load.audio('laugh', './assets/EvilLaugh.mp3')
-        this.load.audio('collect', './assets/Collect.wav')
-
-        this.txtcheck = false;*/
-        //defines input
         // define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
@@ -108,9 +77,9 @@ class Menu extends Phaser.Scene {
         this.laugh.play();
         this.title = this.add.sprite(0, 0, 'title').setOrigin(0, 0);
         this.title.setScale(1);
-
         this.select = this.sound.add('select', {volume: 0.9});
 
+        //hat variations
         this.anims.create({
           key: 'hat0',
           frameRate: 8,
@@ -184,6 +153,44 @@ class Menu extends Phaser.Scene {
           })
         })
 
+        // player animations
+        this.anims.create({
+          key: 'standr',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('buster', {
+              start: 0,
+              end: 0
+          })
+      })
+      this.anims.create({
+          key: 'walkr',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('buster', {
+              start: 0,
+              end: 1
+          })
+      })
+      this.anims.create({
+          key: 'standl',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('buster', {
+              start: 2,
+              end: 2
+          })
+      })
+      this.anims.create({
+          key: 'walkl',
+          frameRate: 8,
+          repeat: -1,
+          frames: this.anims.generateFrameNumbers('buster', {
+              start: 2,
+              end: 3
+          })
+      })
+
         this.controls = this.physics.add.sprite(config.width/2, config.height/2, 'controls');
         this.controls.scaleX = 0;
         this.select = this.sound.add('select', {volume: 0.2});
@@ -192,11 +199,14 @@ class Menu extends Phaser.Scene {
 
 
     update() {
+
+      //start game
       if(Phaser.Input.Keyboard.JustDown(keySPACE)){
         this.select.play();
-        //this.scene.start("shopScene");
         this.scene.start("playScene");
       }
+
+      //controls
       else if(Phaser.Input.Keyboard.JustDown(keyENTER)){
         this.select.play();
         if(this.controls.scaleX == 0){

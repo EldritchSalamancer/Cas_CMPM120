@@ -1,22 +1,15 @@
 class Shop extends Phaser.Scene {
     constructor() {
         super("shopScene");
-        //console.log("Play is constructed");
     }
 
     preload(){
-        //loads assets
-
-
-          keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
         keyUP = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-
-        //this.load.image();
     }
-    //private sampleSound: Phaser.sound;
 
     create() {
         this.music = this.sound.add('shopmusic', {volume: 0.2});
@@ -51,22 +44,8 @@ class Shop extends Phaser.Scene {
             repeat: -1
         });
         this.moneytxt = this.add.text(config.width - 120, 20, "Money: " + money, {color: "black"});
-        /*if(this.runs <= 1){
-        this.anims.create({
-            key: 'arrow',
-            frames: this.anims.generateFrameNumbers('arrows', { start: 0, end: 1, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'shopidle',
-            frames: this.anims.generateFrameNumbers('arrows', { start: 0, end: 2, first: 0}),
-            frameRate: 4,
-            repeat: -1
-        });
-        }*/
 
-
+        //tween to make ghost look like it is "floating"
         let ghostTween = this.tweens.chain({
             targets: this.ghost,
             //ease: 'Bounce.easeOut',
@@ -128,32 +107,28 @@ class Shop extends Phaser.Scene {
     }
     update() {
         for(var i = 0; i < this.buttons.length; i++){
-
-            //changes what button is selected in the shop
+            //changes what button is visually selected in the shop
             if(this.selection == i){
                 this.buttons[i].sprite.anims.play('sel_button');
-                //this.buttons[i].sprite.tint = 0xFFFFFF;
             }
             else{
                 this.buttons[i].sprite.anims.play('unsel_button');
-                //this.buttons[i].sprite.tint = 0xFFFFFF;
             }
         }
 
+        //explores buttons
             if(Phaser.Input.Keyboard.JustDown(keyDOWN) && this.selection < this.buttons.length - 1){
                 this.selection += 1;
-                //this.buttons[this.selection].txt.tint = 0x004000;
                 this.select.play();
                 this.ghosttext.text = this.buttons[this.selection].dialog;
-                //console.log("selection is: " + this.selection);
             }
             else if(Phaser.Input.Keyboard.JustDown(keyUP) && this.selection > 0){
                 this.selection -= 1;
-                //this.buttons[this.selection].sprite.tint = 0x004000;
                 this.select.play();
                 this.ghosttext.text = this.buttons[this.selection].dialog;
-                //console.log("selection is: " + this.selection);
             }
+
+            //activates button
             if(Phaser.Input.Keyboard.JustDown(keySPACE)){
                 if(this.selection != this.buttons.length - 1 && this.buttons[this.selection].txt.text != "Sold!" ){
                     if(this.buttons[this.selection].cost <= money){
@@ -166,7 +141,6 @@ class Shop extends Phaser.Scene {
                     }
                 }
                 else if(this.buttons[this.selection].txt.text == "Exit"){
-                    //this.select.play();
                     this.select.play();
                     this.music.stop();
                     this.scene.start("playScene");

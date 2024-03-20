@@ -17,101 +17,43 @@ class Play extends Phaser.Scene {
         keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        //this.load.path = './assets/'
-        this.load.spritesheet('slime', './assets/tilemap/slime.png', {
-            frameWidth: 16,
-            frameHeight: 16
-        })
-465
-        this.load.image('tilesetImage', './assets/tilemap/Tileset2.png');
-        this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset6.json");
-        //this.load.tilemapTiledJSON('tilemapJSON', "./assets/tilemap/tileset4.tmj");
     }
     
     create() {
         //tilemap stuff
-        //const map = this.add.tilemap('tilemapJSON');
         const map = this.add.tilemap('tilemapJSON');
         const tileset = map.addTilesetImage('tileset3', 'tilesetImage');
         const bgLayer = map.createLayer('Background', tileset, 0, 0);
         const terrainLayer = map.createLayer('Terrain', tileset, 0, 0);
         const treeLayer = map.createLayer('Trees', tileset, 0, 0);
-
         terrainLayer.setCollisionByProperty({collides: true});
         treeLayer.setCollisionByProperty({collides: true});
 
-        
+    
+        //HUD
         this.HUD = this.physics.add.sprite(320, 445, "hud"); this.HUD.scaleY = 0.7
-        // add player
-        /*this.buster = this.physics.add.sprite(32, 32, 'buster', 0)
-        this.buster.body.setCollideWorldBounds(true)*/
-
-        // buster animation animation
-        this.anims.create({
-            key: 'standr',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('buster', {
-                start: 0,
-                end: 0
-            })
-        })
-        // buster animation animation
-        this.anims.create({
-            key: 'walkr',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('buster', {
-                start: 0,
-                end: 1
-            })
-        })
-        // buster animation animation
-        this.anims.create({
-            key: 'standl',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('buster', {
-                start: 2,
-                end: 2
-            })
-        })
-        // buster animation animation
-        this.anims.create({
-            key: 'walkl',
-            frameRate: 8,
-            repeat: -1,
-            frames: this.anims.generateFrameNumbers('buster', {
-                start: 2,
-                end: 3
-            })
-        })
-
-        this.playerdir = "up";
-        //this.playerhat = new Hat(this, 200, 200, 'hats', 0, hat).setOrigin(0, 0);
-        this.player = new Buster(this, 200, 200, 'laser', 0, this.playerhat).setOrigin(0, 0);
-        this.player.sprite.play('standr');
-        var xtxt = "X".repeat(health);
         for(var i = 0; i < this.health; i++){
             xtxt = xtxt + "X";
         }
-
         this.moneytxt = this.add.text(config.width - 110, config.height - 35, money, { fontSize: 24, color: "black", backgroundColor: "#ADD8E6"});
         this.questtxt = this.add.text(config.width - 440, config.height - 35, "Fend off the Ghost invasion!", { fontSize: 12, color: "black"});
         this.healthtxt = this.add.text(40, config.height - 35,  xtxt, { fontSize: 24, color: "black", backgroundColor: "#ADD8E6"});
         this.cameras.main.setBounds(0, 0, map.widthInPixels);
-        //this.cameras.main.startFollow(this.player.sprite, true, 0.25, 0.25);
 
+        //spawns player
+        this.playerdir = "up";
+        this.player = new Buster(this, 200, 200, 'laser', 0, this.playerhat).setOrigin(0, 0);
+        this.player.sprite.play('standr');
+        var xtxt = "X".repeat(health);
+        
+        //camera & map collision
         this.physics.world.setBounds(0,0, map.widthInPixels, map.heightInPixels);
-
         this.physics.add.collider(this.player.sprite, terrainLayer);
         this.physics.add.collider(this.player.sprite, treeLayer);
-
-        // input
         this.cursors = this.input.keyboard.createCursorKeys()
 
+        //lasers and ghosts
         this.lasersound = this.sound.add('pew', {volume: 0.2});
-
         this.lasers = this.add.group([]);
         this.ghosts = this.add.group([]);
         this.ghostarr = [];
@@ -124,10 +66,9 @@ class Play extends Phaser.Scene {
                     break;
                 }
             }
-            
+            laser.destroy();
             ghost.destroyed = true;
             this.zap.play();
-            //ghost.destroy();
             money += 20;
         })
 
@@ -151,44 +92,27 @@ class Play extends Phaser.Scene {
             this.spook.play();
         })
 
-        this.store = this.physics.add.sprite(100, 100, "shopbutton");
-        this.store.visible = false;
-        this.store.scaleX = 0.5;
-
+        //sounds
         this.music = this.sound.add('gamemusic', {volume: 0.5});
         this.music.loop = true;
         this.music.play();
         this.zap = this.sound.add('zap', {volume: 0.5});
         this.spook = this.sound.add('spook', {spook: 0.5});
-        //this.shoptxt = this.add.text(100, 100, "STORE");
+
+        //store
+        this.store = this.physics.add.sprite(100, 100, "shopbutton");
+        this.store.visible = false;
+        this.store.scaleX = 0.5;
         this.physics.add.collider(this.player.sprite, this.store, (player, store) => {
             this.music.stop();
             this.scene.start("shopScene");
         })
 
         this.time = 0;
-
-        
-        //old
     }
 
     update() {
-        // player movement
-        /*this.direction = new Phaser.Math.Vector2(0)
-        if(this.cursors.left.isDown) {
-            this.direction.x = -1
-        } else if(this.cursors.right.isDown) {
-            this.direction.x = 1
-        }
-
-        if(this.cursors.up.isDown) {
-            this.direction.y = -1
-        } else if(this.cursors.down.isDown) {
-            this.direction.y = 1
-        }
-        
-        this.direction.normalize()
-        this.player.sprite.setVelocity(this.VEL * this.direction.x, this.VEL * this.direction.y);*/
+        //Updates HUD
         if(money > 9999){
             money = 9999;
         }
@@ -197,7 +121,6 @@ class Play extends Phaser.Scene {
         for(var i = 0; i < this.ghostarr.length; i++){
             this.ghostarr[i].update();
         }
-        //this.moneytxt.text = "Money: " + money;
         this.moneytxt.text = money;
         var xtxt = ""
         for(var i = 0; i < this.health; i++){
@@ -205,6 +128,7 @@ class Play extends Phaser.Scene {
         }
         this.healthtxt.text = "X".repeat(health);
 
+        //Game Over
         if(health <= 0){
             hat = 0;
             spawnrate = 50;
@@ -214,10 +138,10 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene");
         }
 
+        //Spawns Enemies
         this.time += 1;
         if(this.time >= spawnrate){
             spawncount += 1;
-            //console.log("spawning ghost");
             this.time = 0;
             var random = Math.ceil(Math.random() * 4);
             if(random == 1){
@@ -233,10 +157,9 @@ class Play extends Phaser.Scene {
                 var newghost = new Ghost (this, config.width + 50, Math.random() * config.height, 'ghost', 0).setOrigin(0, 0);
             }
             
-        }
-
+        }   
+        //Increases enemy spawnrate & slowly heals over time
         if(spawncount >= 8){
-            //console.log("increasing spawnrate");
             spawncount = 0;
             if(spawnrate > 25){
                 spawnrate -= 1;
